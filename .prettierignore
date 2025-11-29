@@ -1,0 +1,29 @@
+# Dependencies
+node_modules
+.next
+out
+dist
+build
+
+# Generated files
+*.min.js
+*.min.css
+
+# Logs
+*.log
+
+# Package files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Other
+.DS_Store
+coverage
+
+
