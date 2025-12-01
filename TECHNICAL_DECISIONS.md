@@ -1,81 +1,81 @@
-# Technical Decisions & Justifications
+# Décisions Techniques & Justifications
 
-This document outlines the technical choices made for this project and their justifications, as requested in the technical test requirements.
+Ce document présente les choix techniques effectués pour ce projet et leurs justifications, comme demandé dans les exigences du test technique.
 
-## 📡 Data Fetching Strategy
+## 📡 Stratégie de récupération de données
 
-### Server Components for Articles
+### Server Components pour les Articles
 
-**Decision**: Use Server Components for the Articles section (`components/sections/Articles.tsx`)
+**Décision** : Utiliser des Server Components pour la section Articles (`components/sections/Articles.tsx`)
 
-**Justification**:
+**Justification** :
 
-- **Performance**: Data is fetched on the server, reducing client-side JavaScript bundle size
-- **SEO**: Content is available at build time, improving search engine indexing
-- **Security**: API keys and sensitive logic stay on the server
-- **User Experience**: Faster initial page load, content visible immediately
+- **Performance** : Les données sont récupérées sur le serveur, réduisant la taille du bundle JavaScript côté client
+- **SEO** : Le contenu est disponible au moment du build, améliorant l'indexation par les moteurs de recherche
+- **Sécurité** : Les clés API et la logique sensible restent sur le serveur
+- **Expérience utilisateur** : Chargement initial plus rapide, contenu visible immédiatement
 
-**Implementation**:
+**Implémentation** :
 
 ```typescript
-// Server Component - fetches data on server
+// Server Component - récupère les données sur le serveur
 export async function Articles() {
   const posts = await getPosts(30);
-  // ... render articles
+  // ... rendu des articles
 }
 ```
 
 ### ISR (Incremental Static Regeneration)
 
-**Decision**: Use ISR with 1-hour revalidation for articles
+**Décision** : Utiliser l'ISR avec revalidation d'1 heure pour les articles
 
-**Justification**:
+**Justification** :
 
-- **Balance**: Fresh content without rebuilding entire site
-- **Performance**: Static pages with periodic updates
-- **Cost**: Reduces server load compared to SSR
-- **User Experience**: Fast page loads with up-to-date content
+- **Équilibre** : Contenu frais sans reconstruire tout le site
+- **Performance** : Pages statiques avec mises à jour périodiques
+- **Coût** : Réduit la charge serveur par rapport au SSR
+- **Expérience utilisateur** : Chargements de pages rapides avec contenu à jour
 
-**Implementation**:
+**Implémentation** :
 
 ```typescript
 const response = await fetch(`https://dummyjson.com/posts?limit=${limit}`, {
-  next: { revalidate: 3600 }, // Revalidate every hour
+  next: { revalidate: 3600 }, // Revalider toutes les heures
 });
 ```
 
-### Client-side Fetching for Statistics
+### Récupération côté client pour les Statistiques
 
-**Decision**: Use a custom hook (`useNumbers`) for client-side data fetching
+**Décision** : Utiliser un hook personnalisé (`useNumbers`) pour la récupération de données côté client
 
-**Justification**:
+**Justification** :
 
-- **Interactivity**: Numbers animate on scroll, requiring client-side logic
-- **Fallback Strategy**: Graceful degradation with default values if API fails
-- **User Experience**: Animation triggers when component enters viewport
-- **Flexibility**: Can be easily extended for real-time updates
+- **Interactivité** : Les chiffres s'animent au scroll, nécessitant une logique côté client
+- **Stratégie de fallback** : Dégradation gracieuse avec valeurs par défaut si l'API échoue
+- **Expérience utilisateur** : L'animation se déclenche quand le composant entre dans le viewport
+- **Flexibilité** : Peut être facilement étendu pour des mises à jour en temps réel
 
-**Implementation**:
+**Implémentation** :
 
 ```typescript
-// Custom hook with error handling and cleanup
+// Hook personnalisé avec gestion d'erreurs et nettoyage
 export function useNumbers(): NumbersData | null {
-  // Fetches from /api/numbers with fallback values
+  // Récupère depuis /api/numbers avec valeurs de fallback
 }
 ```
 
-### Custom API Route for Statistics
+### Route API personnalisée pour les Statistiques
 
-**Decision**: Create `/api/numbers` endpoint instead of direct client fetch
+**Décision** : Créer l'endpoint `/api/numbers` au lieu d'un fetch direct côté client
 
-**Justification**:
+**Justification** :
 
-- **Abstraction**: Centralizes data source, easy to swap implementation
-- **Security**: Can add authentication/rate limiting if needed
-- **Consistency**: Same pattern as other API integrations
-- **Future-proof**: Easy to add caching, transformation, or external API calls
+- **Abstraction** : Centralise la source de données, facile de changer l'implémentation
+- **Sécurité** : Peut ajouter authentification/limitation de débit si nécessaire
+- **Cohérence** : Même pattern que les autres intégrations API
+- **Évolutivité** : Facile d'ajouter du cache, transformation, ou appels API externes
 
-**Implementation**:
+**Implémentation** :
 
 ```typescript
 // app/api/numbers/route.ts
@@ -89,169 +89,169 @@ export async function GET() {
 }
 ```
 
-## 🏗️ Architecture Decisions
+## 🏗️ Décisions d'architecture
 
-### Component Organization
+### Organisation des composants
 
-**Decision**: Atomic Design-inspired structure (layout, sections, ui)
+**Décision** : Structure inspirée d'Atomic Design (layout, sections, ui)
 
-**Justification**:
+**Justification** :
 
-- **Scalability**: Easy to find and maintain components
-- **Reusability**: UI components can be shared across sections
-- **Team Collaboration**: Clear separation of concerns
-- **Testing**: Easier to test isolated components
+- **Évolutivité** : Facile de trouver et maintenir les composants
+- **Réutilisabilité** : Les composants UI peuvent être partagés entre sections
+- **Collaboration d'équipe** : Séparation claire des responsabilités
+- **Tests** : Plus facile de tester des composants isolés
 
-### Custom Hooks for Data Fetching
+### Hooks personnalisés pour la récupération de données
 
-**Decision**: Extract data fetching logic into reusable hooks
+**Décision** : Extraire la logique de récupération de données dans des hooks réutilisables
 
-**Justification**:
+**Justification** :
 
-- **Separation of Concerns**: Business logic separated from presentation
-- **Reusability**: Hook can be used in multiple components
-- **Testability**: Easier to test data fetching logic independently
-- **Maintainability**: Single source of truth for data fetching
+- **Séparation des responsabilités** : Logique métier séparée de la présentation
+- **Réutilisabilité** : Le hook peut être utilisé dans plusieurs composants
+- **Testabilité** : Plus facile de tester la logique de récupération de données indépendamment
+- **Maintenabilité** : Source unique de vérité pour la récupération de données
 
-### TypeScript Throughout
+### TypeScript partout
 
-**Decision**: Strict TypeScript with proper type definitions
+**Décision** : TypeScript strict avec définitions de types appropriées
 
-**Justification**:
+**Justification** :
 
-- **Type Safety**: Catch errors at compile time
-- **Developer Experience**: Better IDE support and autocomplete
-- **Documentation**: Types serve as inline documentation
-- **Refactoring**: Safer code changes with type checking
+- **Sécurité de type** : Détecter les erreurs à la compilation
+- **Expérience développeur** : Meilleur support IDE et autocomplétion
+- **Documentation** : Les types servent de documentation inline
+- **Refactoring** : Modifications de code plus sûres avec vérification de types
 
-## 🎨 Animation Strategy
+## 🎨 Stratégie d'animation
 
 ### Framer Motion
 
-**Decision**: Use Framer Motion for all animations
+**Décision** : Utiliser Framer Motion pour toutes les animations
 
-**Justification**:
+**Justification** :
 
-- **Performance**: Hardware-accelerated animations
-- **Flexibility**: Complex animations (parallax, scroll-triggered)
-- **Developer Experience**: Declarative API, easy to use
-- **Accessibility**: Built-in respect for `prefers-reduced-motion`
+- **Performance** : Animations accélérées par le matériel
+- **Flexibilité** : Animations complexes (parallaxe, déclenchées au scroll)
+- **Expérience développeur** : API déclarative, facile à utiliser
+- **Accessibilité** : Respect intégré de `prefers-reduced-motion`
 
-### Animation Triggers
+### Déclencheurs d'animation
 
-**Decision**: Scroll-triggered animations for statistics
+**Décision** : Animations déclenchées au scroll pour les statistiques
 
-**Justification**:
+**Justification** :
 
-- **Performance**: Animations only run when visible
-- **User Experience**: Numbers animate when user scrolls to section
-- **Engagement**: Draws attention to key metrics
+- **Performance** : Les animations ne s'exécutent que quand elles sont visibles
+- **Expérience utilisateur** : Les chiffres s'animent quand l'utilisateur scroll jusqu'à la section
+- **Engagement** : Attire l'attention sur les métriques clés
 
-## 🧪 Testing Strategy
+## 🧪 Stratégie de tests
 
-### What to Test
+### Ce qu'il faut tester
 
-**Decision**: Test business logic, hooks, and components (not thin wrappers)
+**Décision** : Tester la logique métier, les hooks et les composants (pas les wrappers minces)
 
-**Justification**:
+**Justification** :
 
-- **ROI**: Focus on code that can break or has complex logic
-- **Maintainability**: Fewer tests to maintain
-- **Quality**: Tests that actually catch bugs
-- **Professional Judgment**: Shows understanding of testing best practices
+- **ROI** : Se concentrer sur le code qui peut casser ou a une logique complexe
+- **Maintenabilité** : Moins de tests à maintenir
+- **Qualité** : Tests qui détectent réellement des bugs
+- **Jugement professionnel** : Montre la compréhension des meilleures pratiques de test
 
-### Testing Tools
+### Outils de test
 
-**Decision**: Jest + React Testing Library
+**Décision** : Jest + React Testing Library
 
-**Justification**:
+**Justification** :
 
-- **Industry Standard**: Widely used and well-documented
-- **Next.js Integration**: Works seamlessly with Next.js
-- **Best Practices**: Encourages testing user behavior, not implementation
+- **Standard de l'industrie** : Large utilisation et bien documenté
+- **Intégration Next.js** : Fonctionne parfaitement avec Next.js
+- **Meilleures pratiques** : Encourage à tester le comportement utilisateur, pas l'implémentation
 
-## 🚀 Performance Optimizations
+## 🚀 Optimisations de performance
 
-### Image Optimization
+### Optimisation d'images
 
-**Decision**: Use Next.js Image component with `priority` for above-the-fold images
+**Décision** : Utiliser le composant Next.js Image avec `priority` pour les images above-the-fold
 
-**Justification**:
+**Justification** :
 
-- **Performance**: Automatic image optimization and lazy loading
-- **Core Web Vitals**: Improves LCP (Largest Contentful Paint)
-- **Bandwidth**: Serves appropriate image sizes
+- **Performance** : Optimisation automatique d'images et lazy loading
+- **Core Web Vitals** : Améliore le LCP (Largest Contentful Paint)
+- **Bande passante** : Sert des tailles d'images appropriées
 
-### Font Optimization
+### Optimisation de polices
 
-**Decision**: Use `next/font` for Google Fonts
+**Décision** : Utiliser `next/font` pour les Google Fonts
 
-**Justification**:
+**Justification** :
 
-- **Performance**: Fonts are self-hosted, reducing external requests
-- **Privacy**: No requests to Google Fonts CDN
-- **Reliability**: Fonts always available, no FOUT (Flash of Unstyled Text)
+- **Performance** : Les polices sont auto-hébergées, réduisant les requêtes externes
+- **Confidentialité** : Pas de requêtes vers le CDN Google Fonts
+- **Fiabilité** : Polices toujours disponibles, pas de FOUT (Flash of Unstyled Text)
 
-### Code Splitting
+### Code splitting
 
-**Decision**: Leverage Next.js automatic code splitting
+**Décision** : Exploiter le code splitting automatique de Next.js
 
-**Justification**:
+**Justification** :
 
-- **Bundle Size**: Only load code needed for current page
-- **Performance**: Faster initial page load
-- **User Experience**: Progressive loading of features
+- **Taille du bundle** : Charge uniquement le code nécessaire pour la page actuelle
+- **Performance** : Chargement initial de page plus rapide
+- **Expérience utilisateur** : Chargement progressif des fonctionnalités
 
-## 🔒 Error Handling
+## 🔒 Gestion d'erreurs
 
-### Fallback Values
+### Valeurs de fallback
 
-**Decision**: Return default values when API calls fail
+**Décision** : Retourner des valeurs par défaut quand les appels API échouent
 
-**Justification**:
+**Justification** :
 
-- **User Experience**: Application continues to work even if API fails
-- **Resilience**: Graceful degradation
-- **Debugging**: Errors logged to console for development
+- **Expérience utilisateur** : L'application continue de fonctionner même si l'API échoue
+- **Résilience** : Dégradation gracieuse
+- **Débogage** : Erreurs loggées dans la console pour le développement
 
-### Cleanup in Hooks
+### Nettoyage dans les hooks
 
-**Decision**: Prevent state updates after component unmount
+**Décision** : Empêcher les mises à jour d'état après le démontage du composant
 
-**Justification**:
+**Justification** :
 
-- **Memory Leaks**: Prevents React warnings and potential leaks
-- **Best Practices**: Follows React guidelines for async operations
-- **Stability**: More stable application behavior
+- **Fuites mémoire** : Empêche les avertissements React et les fuites potentielles
+- **Meilleures pratiques** : Suit les guidelines React pour les opérations async
+- **Stabilité** : Comportement d'application plus stable
 
-## 📱 Responsive Design
+## 📱 Design responsive
 
-### Mobile-First Approach
+### Approche mobile-first
 
-**Decision**: Use Tailwind's mobile-first breakpoints
+**Décision** : Utiliser les breakpoints mobile-first de Tailwind
 
-**Justification**:
+**Justification** :
 
-- **Performance**: Smaller CSS bundle for mobile
-- **User Experience**: Optimized for most common device type
-- **Maintainability**: Single set of styles with responsive variants
+- **Performance** : Bundle CSS plus petit pour mobile
+- **Expérience utilisateur** : Optimisé pour le type d'appareil le plus courant
+- **Maintenabilité** : Un seul ensemble de styles avec variantes responsives
 
-### Breakpoint Strategy
+### Stratégie de breakpoints
 
-**Decision**: Use `md:` and `lg:` breakpoints for tablet and desktop
+**Décision** : Utiliser les breakpoints `md:` et `lg:` pour tablette et desktop
 
-**Justification**:
+**Justification** :
 
-- **Standard**: Common breakpoint strategy
-- **Flexibility**: Covers most device sizes
-- **Simplicity**: Not over-engineering with too many breakpoints
+- **Standard** : Stratégie de breakpoint courante
+- **Flexibilité** : Couvre la plupart des tailles d'appareils
+- **Simplicité** : Pas de sur-ingénierie avec trop de breakpoints
 
-## 🎯 Summary
+## 🎯 Résumé
 
-All technical decisions prioritize:
+Toutes les décisions techniques privilégient :
 
-1. **Performance**: Fast load times and smooth interactions
-2. **User Experience**: Responsive, accessible, and engaging
-3. **Maintainability**: Clean, well-organized, testable code
-4. **Scalability**: Architecture that can grow with the project
-5. **Best Practices**: Following industry standards and Next.js recommendations
+1. **Performance** : Temps de chargement rapides et interactions fluides
+2. **Expérience utilisateur** : Responsive, accessible et engageant
+3. **Maintenabilité** : Code propre, bien organisé, testable
+4. **Évolutivité** : Architecture qui peut grandir avec le projet
+5. **Meilleures pratiques** : Suivre les standards de l'industrie et les recommandations Next.js

@@ -1,150 +1,148 @@
-# Technical Test - Lead Frontend Developer
+# Test Technique
 
-## 🎯 Project Overview
+## 🎯 Vue d'ensemble du projet
 
-This is a Next.js application implementing a podcast platform design with animations, dynamic content, and responsive layouts. Built for a technical assessment demonstrating modern React/Next.js practices.
+Cette application Next.js implémente un design de plateforme de podcasts avec animations, contenu dynamique et mises en page responsives. Développée pour une évaluation technique démontrant les pratiques modernes React/Next.js.
 
-## 🚀 Quick Start
+## 🚀 Démarrage rapide
 
 ```bash
-# Install dependencies
+# Installer les dépendances
 npm install
 
-# Run development server
+# Lancer le serveur de développement
 npm run dev
 
-# Build for production
+# Build pour la production
 npm run build
 
-# Run tests
+# Lancer les tests
 npm test
 
-# Run tests with coverage
+# Lancer les tests avec couverture
 npm run test:coverage
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+Ouvrez [http://localhost:3000](http://localhost:3000) pour voir l'application.
 
-## 📋 Features Implemented
+## 📋 Fonctionnalités implémentées
 
-- ✅ **Responsive Design**: Desktop & mobile layouts
-- ✅ **Animations**: Parallax scroll, CTA rotation, gradient hover effects, number incrementation
-- ✅ **Custom API**: `/api/numbers` endpoint for statistics
-- ✅ **External API Integration**: DummyJSON for articles with dynamic routing
-- ✅ **Server Components**: Optimized data fetching with ISR
-- ✅ **TypeScript**: Full type safety throughout
-- ✅ **Testing**: Unit tests for hooks, components, and API functions
+- ✅ **Design Responsive** : Mises en page desktop et mobile
+- ✅ **Animations** : Parallaxe au scroll, rotation CTA, effets de dégradé au survol, incrémentation des chiffres
+- ✅ **API personnalisée** : Endpoint `/api/numbers` pour les statistiques
+- ✅ **Intégration API externe** : DummyJSON pour les articles avec routage dynamique
+- ✅ **Server Components** : Récupération de données optimisée avec ISR
+- ✅ **TypeScript** : Sécurité de type complète
+- ✅ **Tests** : Tests unitaires pour les hooks, composants et fonctions API
 
 ## 🏗️ Architecture
 
-### Tech Stack
+### Stack technique
 
-- **Framework**: Next.js 16.0.5 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS 4
-- **Animations**: Framer Motion
-- **Testing**: Jest + React Testing Library
+- **Framework** : Next.js 16.0.5 (App Router)
+- **Langage** : TypeScript
+- **Styling** : Tailwind CSS 4
+- **Animations** : Framer Motion
+- **Tests** : Jest + React Testing Library
 
-### Project Structure
+### Structure du projet
 
 ```
 ├── app/                    # Next.js App Router
-│   ├── api/               # API routes
-│   ├── articles/           # Dynamic article pages
-│   └── page.tsx           # Home page
-├── components/            # React components
+│   ├── api/               # Routes API
+│   ├── articles/           # Pages d'articles dynamiques
+│   └── page.tsx           # Page d'accueil
+├── components/            # Composants React
 │   ├── layout/            # Header, Footer
-│   ├── sections/          # Page sections (Hero, Articles, etc.)
-│   └── ui/                # Reusable UI components
-├── hooks/                 # Custom React hooks
-├── lib/                   # Utilities and API clients
-│   ├── api/               # API functions
-│   ├── types/             # TypeScript types
-│   └── utils/             # Utility functions
-└── public/                # Static assets
+│   ├── sections/          # Sections de page (Hero, Articles, etc.)
+│   └── ui/                # Composants UI réutilisables
+├── hooks/                 # Hooks React personnalisés
+├── lib/                   # Utilitaires et clients API
+│   ├── api/               # Fonctions API
+│   ├── types/             # Types TypeScript
+│   └── utils/             # Fonctions utilitaires
+└── public/                # Assets statiques
 ```
 
-## 📊 Data Fetching Strategy
+## 📊 Stratégie de récupération de données
 
-See [TECHNICAL_DECISIONS.md](./TECHNICAL_DECISIONS.md) for detailed justifications.
+Voir [TECHNICAL_DECISIONS.md](./TECHNICAL_DECISIONS.md) pour les justifications détaillées.
 
-### Summary
+### Résumé
 
-- **Server Components**: Used for initial data fetching (Articles, static content)
-- **ISR (Incremental Static Regeneration)**: 1-hour revalidation for articles
-- **Client-side Fetching**: Custom hook (`useNumbers`) for statistics with fallback values
-- **API Routes**: Custom `/api/numbers` endpoint for statistics data
+- **Server Components** : Utilisés pour la récupération initiale de données (Articles, contenu statique)
+- **ISR (Incremental Static Regeneration)** : Revalidation d'1 heure pour les articles
+- **Récupération côté client** : Hook personnalisé (`useNumbers`) pour les statistiques avec valeurs de fallback
+- **Routes API** : Endpoint personnalisé `/api/numbers` pour les données statistiques
 
-## 🧪 Testing
+## 🧪 Tests
 
-Tests are located in `__tests__` directories co-located with source files.
+Les tests sont situés dans les répertoires `__tests__` co-localisés avec les fichiers sources.
 
 ```bash
-npm test              # Run all tests
-npm run test:watch    # Watch mode
-npm run test:coverage # Coverage report
+npm test              # Lancer tous les tests
+npm run test:watch    # Mode watch
+npm run test:coverage # Rapport de couverture
 ```
 
-**Test Coverage:**
-- Custom hooks (data fetching, cleanup)
-- Components (rendering, user interactions)
-- API functions (error handling, fallbacks)
+**Couverture des tests :**
 
-## 🎨 Design Implementation
+- Hooks personnalisés (récupération de données, nettoyage)
+- Composants (rendu, interactions utilisateur)
+- Fonctions API (gestion d'erreurs, fallbacks)
 
-- **Figma Design**: Fully integrated with responsive breakpoints
-- **Animations**:
-  - Parallax scroll on hero section
-  - CTA button rotation on hover
-  - Radial gradient filter on article cards
-  - Animated number counters on scroll
-- **Fonts**: Darker Grotesque (headings), Open Sans (body)
+## 🎨 Implémentation du design
 
-## 📦 Build & Deploy
+- **Design Figma** : Intégration complète avec breakpoints responsives
+- **Animations** :
+  - Parallaxe au scroll sur la section hero
+  - Rotation du bouton CTA au survol
+  - Filtre dégradé radial sur les cartes d'articles
+  - Compteurs de chiffres animés au scroll
+- **Polices** : Darker Grotesque (titres), Open Sans (corps)
+
+## 📦 Build & Déploiement
 
 ```bash
-npm run build  # Production build
-npm start      # Start production server
+npm run build  # Build de production
+npm start      # Démarrer le serveur de production
 ```
 
-The application is optimized for production with:
-- Static page generation (SSG)
-- Image optimization (Next.js Image)
-- Font optimization (next/font)
+L'application est optimisée pour la production avec :
+
+- Génération de pages statiques (SSG)
+- Optimisation d'images (Next.js Image)
+- Optimisation de polices (next/font)
 - Code splitting
 
-## 🔧 Development
+## 🔧 Développement
 
-### Code Quality
+### Qualité du code
 
-- **ESLint**: Configured with Next.js rules
-- **Prettier**: Code formatting
-- **TypeScript**: Strict mode enabled
-- **Git**: Conventional commits
+- **ESLint** : Configuré avec les règles Next.js
+- **Prettier** : Formatage du code
+- **TypeScript** : Mode strict activé
+- **Git** : Commits conventionnels
 
-### Best Practices
+### Bonnes pratiques
 
-- Component composition and reusability
-- Custom hooks for data fetching
-- Type safety throughout
-- Error handling and fallbacks
-- Performance optimizations
+- Composition et réutilisabilité des composants
+- Hooks personnalisés pour la récupération de données
+- Sécurité de type partout
+- Gestion d'erreurs et fallbacks
+- Optimisations de performance
 
 ## 📝 Notes
 
-- All animations use Framer Motion for smooth, performant interactions
-- API error handling includes fallback values for graceful degradation
-- Responsive design tested across common breakpoints
-- Build passes with no errors or warnings
+- Toutes les animations utilisent Framer Motion pour des interactions fluides et performantes
+- La gestion d'erreurs API inclut des valeurs de fallback pour une dégradation gracieuse
+- Design responsive testé sur les points de rupture courants
+- Le build passe sans erreurs ni avertissements
 
-## 🚀 Future Improvements
+## 🚀 Améliorations futures
 
-- Error boundaries for better error handling
-- Loading skeletons for better UX
-- Accessibility enhancements (ARIA labels, keyboard navigation)
-- E2E tests with Playwright
-- Performance monitoring
-
----
-
-Built with ❤️ for the technical assessment
+- Error boundaries pour une meilleure gestion d'erreurs
+- Squelettes de chargement pour une meilleure UX
+- Améliorations d'accessibilité (labels ARIA, navigation au clavier)
+- Tests E2E avec Playwright
+- Monitoring de performance
