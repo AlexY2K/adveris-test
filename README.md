@@ -115,6 +115,19 @@ L'application est optimisée pour la production avec :
 - Optimisation de polices (next/font)
 - Code splitting
 
+## 🌐 Déploiement
+
+L'application est déployée sur Vercel et accessible à l'adresse suivante :
+
+**🔗 [https://adveris-test.vercel.app/](https://adveris-test.vercel.app/)**
+
+Vous pouvez tester toutes les fonctionnalités directement en ligne :
+
+- Parallaxe sur la section hero
+- Animations des boutons CTA
+- Navigation vers les articles
+- Compteurs animés des statistiques
+
 ## 🔧 Développement
 
 ### Qualité du code
