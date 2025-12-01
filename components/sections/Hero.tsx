@@ -13,13 +13,13 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Parallax transform for the waves layer (moves slower than scroll)
-  const wavesY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]); // More dramatic
+  // Parallax transforms for different layers
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]); // Background moves down
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]); // Text moves up (slowest)
 
   return (
     <div ref={ref} className="relative h-[125vh] overflow-hidden">
-      {/* Static background layer */}
+      {/* Parallax background layer (moves down) */}
       <motion.div style={{ y: bgY }} className="absolute inset-0 z-0">
         <Image
           src="/images/bg-hero.png"
@@ -30,11 +30,8 @@ export function Hero() {
         />
       </motion.div>
 
-      {/* Parallax waves layer */}
-      <motion.div
-        style={{ y: wavesY }}
-        className="absolute inset-0 z-10 opacity-40"
-      >
+      {/* Static waves layer */}
+      <div className="absolute inset-0 z-10 opacity-40">
         <Image
           src="/images/bg-hero-waves.png"
           alt="Hero waves"
@@ -42,16 +39,18 @@ export function Hero() {
           className="object-cover"
           priority
         />
-      </motion.div>
-
-      {/* Hero content (text, buttons, etc.) */}
-      <div className="relative z-20 flex items-center justify-center h-full">
-        <h1 className="font-darker-grotesque text-white text-center text-[128px] font-normal leading-[96px] [text-shadow:0_4px_4px_rgba(0,0,0,0.25)]">
-          Les meilleurs podcasts
-          <br />
-          <strong className="font-semibold">de musique</strong>
-        </h1>
       </div>
+
+      {/* Parallax text layer (moves up, slowest) */}
+      <motion.div
+        style={{ y: textY }}
+        className="relative z-20 flex items-center justify-center h-full"
+      >
+        <h1 className="font-darker-grotesque text-white text-center text-9xl font-normal leading-[96px] [text-shadow:0_4px_4px_rgba(0,0,0,0.25)]">
+          <span className="block">Les meilleurs podcasts</span>
+          <strong className="font-semibold block">de musique</strong>
+        </h1>
+      </motion.div>
     </div>
   );
 }
