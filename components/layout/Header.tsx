@@ -1,11 +1,24 @@
-// Header component with centered logo
-// Server Component (default in Next.js App Router)
+"use client";
 
+import { useMotionValueEvent, useScroll } from "framer-motion";
 import Link from "next/link";
+import { useState } from "react";
+import { cn } from "@/lib/utils/cn";
 
 export function Header() {
+  const { scrollY } = useScroll();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 50);
+  });
   return (
-    <header className="absolute z-10 w-full">
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 w-full transition-colors duration-300",
+        isScrolled && "bg-[#0f1419]/65 backdrop-blur-sm"
+      )}
+    >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-center">
           <Link href="/" className="flex items-center justify-center">
