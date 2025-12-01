@@ -6,7 +6,10 @@ export interface Post {
   body: string;
   userId: number;
   tags: string[];
-  reactions: number;
+  reactions: {
+    likes: number;
+    dislikes: number;
+  };
 }
 
 export interface PostsResponse {
@@ -18,12 +21,9 @@ export interface PostsResponse {
 
 export async function getPosts(limit: number = 30): Promise<Post[]> {
   try {
-    const response = await fetch(
-      `https://dummyjson.com/posts?limit=${limit}`,
-      {
-        next: { revalidate: 3600 }, // Revalidate every hour
-      }
-    );
+    const response = await fetch(`https://dummyjson.com/posts?limit=${limit}`, {
+      next: { revalidate: 3600 }, // Revalidate every hour
+    });
 
     if (!response.ok) {
       throw new Error("Failed to fetch posts");
@@ -54,4 +54,3 @@ export async function getPostById(id: number): Promise<Post | null> {
     return null;
   }
 }
-
