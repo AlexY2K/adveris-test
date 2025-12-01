@@ -8,10 +8,10 @@ export function ContentSection() {
   return (
     <section className="bg-[#1a1a2e] py-20">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-56 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-56 items-center">
           {/* Left Column - Text */}
           <div className="space-y-6">
-            <h2 className="font-darker-grotesque text-white text-[88px] font-medium leading-[.75]">
+            <h2 className="font-darker-grotesque text-white text-5xl lg:text-[88px] font-medium lg:leading-[.75]">
               Lorem ipsum dolor donec sed odio.
             </h2>
             <p className="text-white text-base leading-6">

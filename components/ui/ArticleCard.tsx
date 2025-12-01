@@ -7,17 +7,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { CircularIcon } from "@/components/ui/CircularIcon";
 import { useState } from "react";
-
-interface ArticleCardProps {
-  article: {
-    id: number;
-    title: string;
-    description: string;
-    date: string;
-    tag: string;
-    image: string;
-  };
-}
+import { ArticleCardProps } from "@/lib/types/article";
 
 export function ArticleCard({ article }: ArticleCardProps) {
   const [isHovered, setIsHovered] = useState(false);
@@ -36,7 +26,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Image Container with Gradient Overlay */}
-        <div className="relative aspect-[4/5] mb-8 overflow-hidden article-image">
+        <div className="relative aspect-4/5 mb-8 overflow-hidden article-image">
           <Image
             src={article.image}
             alt={article.title}
@@ -46,12 +36,12 @@ export function ArticleCard({ article }: ArticleCardProps) {
         </div>
 
         {/* Metadata */}
-        <p className="text-white/70 text-sm mb-2 font-open-sans tracking-[2px] leading-6">
+        <p className="text-white/70 text-xs lg:text-sm mb-2 font-open-sans tracking-[2px] leading-6 lg:leading-8">
           {article.date} - {article.tag}
         </p>
 
         {/* Title */}
-        <h3 className="text-white text-5xl leading-8 font-medium mb-6 font-darker-grotesque tracking-[2px] leading-6 article-title">
+        <h3 className="text-white text-3xl lg:text-5xl font-medium mb-6 font-darker-grotesque tracking-[2px] leading-6 article-title lg:leading-8">
           {article.title}
         </h3>
 

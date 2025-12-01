@@ -19,7 +19,7 @@ export function Header() {
         isScrolled && "bg-[#0f1419]/65 backdrop-blur-sm"
       )}
     >
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 py-2 md:py-4">
         <div className="flex items-center justify-center">
           <Link href="/" className="flex items-center justify-center">
             <svg
@@ -28,7 +28,7 @@ export function Header() {
               viewBox="0 0 275 70"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="w-auto h-auto"
+              className="w-48 md:w-auto h-auto"
             >
               <path
                 d="M110.113 22.7055C107.422 22.7055 105.044 24.0885 103.51 26.3398C103.041 24.1206 101.382 22.7055 98.9101 22.7055C96.5004 22.7055 94.3412 23.8312 92.8078 25.6966L92.9955 23.0593H91.5873L88.2076 40.4271H90.1478L92.088 30.4245C92.7765 27.0474 95.3426 24.5709 98.3468 24.5709C100.443 24.5709 101.664 25.8896 101.664 28.2374C101.664 29.2667 101.507 29.8134 99.4108 40.4271H101.32C102.415 34.8951 102.978 32.0005 103.291 30.328C104.042 26.9831 106.577 24.5709 109.519 24.5709C111.647 24.5709 112.836 25.8896 112.836 28.2374C112.836 29.2667 112.679 29.8134 110.614 40.4271H112.554C114.682 29.3631 114.839 28.7842 114.901 27.7228C114.901 24.6996 113.055 22.7055 110.113 22.7055Z"

@@ -46,7 +46,7 @@ export function Hero() {
         style={{ y: textY }}
         className="relative z-20 flex items-center justify-center h-full"
       >
-        <h1 className="font-darker-grotesque text-white text-center text-9xl font-normal leading-[96px] [text-shadow:0_4px_4px_rgba(0,0,0,0.25)]">
+        <h1 className="font-darker-grotesque text-white text-center text-5xl lg:text-9xl font-normal leading-10 lg:leading-[96px] [text-shadow:0_4px_4px_rgba(0,0,0,0.25)]">
           <span className="block">Les meilleurs podcasts</span>
           <strong className="font-semibold block">de musique</strong>
         </h1>
